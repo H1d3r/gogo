@@ -10,9 +10,8 @@ import (
 
 	"github.com/chainreactors/fingers/fingerprinthub"
 	"github.com/chainreactors/fingers/fingers"
-	"github.com/chainreactors/fingers/resources"
-	"github.com/chainreactors/utils/parsers"
 	"github.com/chainreactors/utils"
+	"github.com/chainreactors/utils/parsers"
 )
 
 var (
@@ -26,7 +25,6 @@ var (
 // LoadFinger 加载指纹到全局变量
 func LoadFinger(fileutils []string) error {
 	var err error
-	resources.PrePort = utils.PrePort
 
 	httpfs, err := fingers.LoadFingers(LoadConfig("http"))
 	if err != nil {
@@ -38,7 +36,7 @@ func LoadFinger(fileutils []string) error {
 		return err
 	}
 
-	FingerEngine, err = fingers.NewEngine(httpfs, socketfs)
+	FingerEngine, err = fingers.NewEngineWithPreset(httpfs, socketfs, utils.PrePort)
 	if err != nil {
 		return err
 	}

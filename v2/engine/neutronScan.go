@@ -45,7 +45,7 @@ func executeTemplates(result *Result, pocs []string, target string) {
 			logs.Log.Debugf("neutron scan %s with %s error: %v", target, id, err)
 			return nil
 		}
-		for name, extract := range res.Extracts {
+		for name, extract := range res.ExtractsByName() {
 			result.AddExtract(&parsers.Extracted{Name: name, ExtractResult: extract})
 		}
 		detail := make(map[string][]string, len(res.DynamicValues))

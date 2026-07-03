@@ -6,9 +6,8 @@ package pkg
 import (
 	"github.com/chainreactors/fingers/fingerprinthub"
 	"github.com/chainreactors/fingers/fingers"
-	"github.com/chainreactors/fingers/resources"
-	"github.com/chainreactors/utils/parsers"
 	"github.com/chainreactors/utils"
+	"github.com/chainreactors/utils/parsers"
 )
 
 var (
@@ -20,9 +19,7 @@ var (
 )
 
 func LoadFinger([]string) error {
-	resources.PrePort = utils.PrePort
-
-	engine, err := fingers.NewEngine(fingers.Fingers{}, nil)
+	engine, err := fingers.NewEngineWithPreset(fingers.Fingers{}, nil, utils.PrePort)
 	if err != nil {
 		return err
 	}
@@ -39,7 +36,6 @@ func LoadFinger([]string) error {
 
 func LoadPortConfig(string) error {
 	utils.PrePort = utils.NewPortPreset(nil)
-	resources.PrePort = utils.PrePort
 	return nil
 }
 

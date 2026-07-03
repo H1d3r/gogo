@@ -4,9 +4,9 @@ go 1.24.0
 
 require (
 	github.com/M09ic/go-ntlmssp v0.0.0-20230312133735-dcccd454dfe0
-	github.com/chainreactors/fingers v1.2.2-0.20260629060048-25d52909ff9b
+	github.com/chainreactors/fingers v1.2.2-0.20260703124922-b8ac7e00cf68
 	github.com/chainreactors/logs v0.0.0-20260508055944-c678762ed15c
-	github.com/chainreactors/neutron v0.1.1-0.20260629055246-979be130dcaa
+	github.com/chainreactors/neutron v0.1.1-0.20260703124839-c4091ad1e02d
 	github.com/chainreactors/proxyclient v1.0.4-0.20260218115902-74a84a4535b0
 	github.com/chainreactors/rem v0.3.0
 	github.com/chainreactors/utils v0.0.0-20260629054935-23a3e0a235f9
@@ -17,7 +17,7 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // generate only
 )
 
-require github.com/chainreactors/utils/parsers v0.0.0-20260629054935-23a3e0a235f9
+require github.com/chainreactors/utils/parsers v0.0.0-20260703124640-175b2abe30c2
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
