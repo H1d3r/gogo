@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/chainreactors/utils/parsers"
+	"github.com/chainreactors/utils/httputils"
 	"github.com/chainreactors/utils/iutils"
 )
 
@@ -15,11 +15,11 @@ func CollectSocketResponse(result *Result, socketContent []byte) {
 		CollectParsedResponse(result, newResponseFromRaw(socketContent))
 	} else {
 		result.Content = socketContent
-		if title := parsers.MatchTitle(socketContent); title != "" {
+		if title := httputils.MatchTitle(socketContent); title != "" {
 			result.HasTitle = true
 			result.Title = title
 		} else {
-			result.Title = parsers.MatchCharacter(socketContent)
+			result.Title = httputils.MatchCharacter(socketContent)
 		}
 		result.AddExtracts(Extractors.Extract(string(socketContent), true))
 	}
@@ -33,7 +33,7 @@ func CollectHttpResponse(result *Result, resp *http.Response) {
 	CollectParsedResponse(result, newResponseFromHTTP(resp, int64(DefaultMaxSize*2)))
 }
 
-func CollectParsedResponse(result *Result, resp *parsers.Response) {
+func CollectParsedResponse(result *Result, resp *httputils.Response) {
 	if resp == nil {
 		return
 	}

@@ -6,13 +6,13 @@ package pkg
 import (
 	"net/http"
 
-	"github.com/chainreactors/utils/parsers"
+	"github.com/chainreactors/utils/httputils"
 )
 
-func newResponseFromRaw(raw []byte) *parsers.Response {
-	return parsers.NewResponseWithRaw(raw)
+func newResponseFromRaw(raw []byte) *httputils.Response {
+	return httputils.NewParsedResponse(raw)
 }
 
-func newResponseFromHTTP(resp *http.Response, size int64) *parsers.Response {
-	return parsers.NewResponse(resp, size)
+func newResponseFromHTTP(resp *http.Response, size int64) *httputils.Response {
+	return httputils.NewResponse(resp, size)
 }

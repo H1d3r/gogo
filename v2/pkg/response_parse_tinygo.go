@@ -9,11 +9,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chainreactors/utils/parsers"
 	"github.com/chainreactors/utils/httputils"
 )
 
-func newResponseFromRaw(raw []byte) *parsers.Response {
+func newResponseFromRaw(raw []byte) *httputils.Response {
 	if len(raw) == 0 {
 		return nil
 	}
@@ -39,8 +38,8 @@ func newResponseFromRaw(raw []byte) *parsers.Response {
 		}
 	}
 
-	content := parsers.NewContent(raw)
-	result := &parsers.Response{
+	content := httputils.NewContent(raw)
+	result := &httputils.Response{
 		Server:  server,
 		History: nil,
 		Resp: &http.Response{
@@ -51,16 +50,16 @@ func newResponseFromRaw(raw []byte) *parsers.Response {
 		Content: content,
 	}
 
-	if title := parsers.MatchTitle(raw); title != "" {
+	if title := httputils.MatchTitle(raw); title != "" {
 		result.HasTitle = true
 		result.Title = title
 	} else {
-		result.Title = parsers.MatchCharacter(raw)
+		result.Title = httputils.MatchCharacter(raw)
 	}
 
 	return result
 }
 
-func newResponseFromHTTP(resp *http.Response, size int64) *parsers.Response {
-	return parsers.NewResponse(resp, size)
+func newResponseFromHTTP(resp *http.Response, size int64) *httputils.Response {
+	return httputils.NewResponse(resp, size)
 }

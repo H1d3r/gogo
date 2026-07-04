@@ -4,6 +4,7 @@
 package engine
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/chainreactors/fingers/common"
@@ -44,13 +45,24 @@ func executeTemplates(result *Result, pocs []string, target string) {
 			logs.Log.Debugf("neutron scan %s with %s error: %v", target, id, err)
 			return nil
 		}
-		for name, extract := range res.Extracts {
+		for name, extract := range res.ExtractsByName() {
 			result.AddExtract(&parsers.Extracted{Name: name, ExtractResult: extract})
+		}
+		detail := make(map[string][]string, len(res.DynamicValues))
+		for k, v := range res.DynamicValues {
+			switch val := v.(type) {
+			case []string:
+				detail[k] = val
+			case string:
+				detail[k] = []string{val}
+			default:
+				detail[k] = []string{fmt.Sprint(v)}
+			}
 		}
 		vulns = append(vulns, &common.Vuln{
 			Name:          tmpl.Id,
 			Payload:       res.PayloadValues,
-			Detail:        res.DynamicValues,
+			Detail:        detail,
 			SeverityLevel: common.GetSeverityLevel(tmpl.Info.Severity),
 			Tags:          strings.Split(tmpl.Info.Tags, ","),
 		})

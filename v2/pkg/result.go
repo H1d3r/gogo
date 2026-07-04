@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/chainreactors/fingers/common"
 	"github.com/chainreactors/fingers/fingers"
-	"github.com/chainreactors/utils/parsers"
 	"github.com/chainreactors/utils"
+	"github.com/chainreactors/utils/httputils"
+	"github.com/chainreactors/utils/parsers"
 	"net"
 	"net/http"
 	"strings"
@@ -32,7 +33,7 @@ type Result struct {
 	SmartProbe bool              `json:"-"`
 	TcpConn    *net.Conn         `json:"-"`
 	HttpConn   *http.Client      `json:"-"`
-	Httpresp   *parsers.Response `json:"-"`
+	Httpresp   *httputils.Response `json:"-"`
 	HasTitle   bool              `json:"-"`
 	Err        error             `json:"-"`
 	Error      string            `json:"-"`

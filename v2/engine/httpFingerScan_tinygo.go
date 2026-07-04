@@ -10,7 +10,7 @@ import (
 	"github.com/chainreactors/fingers/common"
 	. "github.com/chainreactors/gogo/v2/pkg"
 	"github.com/chainreactors/logs"
-	"github.com/chainreactors/utils/parsers"
+	"github.com/chainreactors/utils/httputils"
 )
 
 type GogoRoundTripper struct {
@@ -88,7 +88,7 @@ func activeHttpMatch(opt *RunnerOption, result *Result) {
 	}
 }
 
-func historyMatch(resp *parsers.Response) (common.Frameworks, common.Vulns) {
+func historyMatch(resp *httputils.Response) (common.Frameworks, common.Vulns) {
 	if resp.History == nil {
 		return nil, nil
 	}
