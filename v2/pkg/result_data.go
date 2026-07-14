@@ -380,16 +380,19 @@ func parseSegment(segment [][]byte) interface{} {
 
 	// 解析配置
 	config, err := parseConfig(segment[0])
-	if err != nil {
-		return nil
-	}
-
-	// 检查是否以 done 结尾
 	var dataLines [][]byte
-	if bytes.Equal(segment[len(segment)-1], []byte(`["done"]`)) {
-		dataLines = segment[1 : len(segment)-1]
+	if err != nil {
+		// 兼容损坏的 .dat 文件（config header 不是有效 JSON），
+		// 把整段当作 scan 数据行，用空 config 兜底
+		config = &Config{GOGOConfig: &parsers.GOGOConfig{JsonType: "scan"}}
+		dataLines = segment
 	} else {
-		dataLines = segment[1:]
+		// 检查是否以 done 结尾
+		if bytes.Equal(segment[len(segment)-1], []byte(`["done"]`)) {
+			dataLines = segment[1 : len(segment)-1]
+		} else {
+			dataLines = segment[1:]
+		}
 	}
 
 	// 根据配置类型处理数据
@@ -413,8 +416,7 @@ func parseSmartResultData(config *Config, lines [][]byte) *SmartResult {
 
 		var chunk map[string][]string
 		if err := json.Unmarshal(line, &chunk); err != nil {
-			fmt.Println("[-] json error, " + err.Error())
-			return nil
+			continue
 		}
 		for k, v := range chunk {
 			data[k] = v
@@ -434,8 +436,7 @@ func parseScanResultData(config *Config, lines [][]byte) *ResultsData {
 
 		var result parsers.GOGOResult
 		if err := json.Unmarshal(line, &result); err != nil {
-			fmt.Println("[-] json error, " + err.Error())
-			return nil
+			continue
 		}
 		data = append(data, &result)
 	}

@@ -56,7 +56,7 @@ func NewDefaultConfig(opt *RunnerOption) Config {
 
 type Config struct {
 	*parsers.GOGOConfig
-	RunnerOpt *RunnerOption
+	RunnerOpt *RunnerOption `json:"-"`
 	// ip
 	CIDRs    utils.CIDRs `json:"-"`
 	Excludes utils.CIDRs `json:"-"`
@@ -392,7 +392,8 @@ func (config *Config) ToJson(json_type string) string {
 	config.JsonType = json_type
 	s, err := json.Marshal(config)
 	if err != nil {
-		return err.Error()
+		logs.Log.Errorf("marshal config error: %s", err.Error())
+		return "{}"
 	}
 	return string(s)
 }
