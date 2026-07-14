@@ -4,15 +4,15 @@ go 1.24.0
 
 require (
 	github.com/M09ic/go-ntlmssp v0.0.0-20230312133735-dcccd454dfe0
-	github.com/chainreactors/fingers v1.2.2-0.20260703124922-b8ac7e00cf68
-	github.com/chainreactors/logs v0.0.0-20260508055944-c678762ed15c
+	github.com/chainreactors/fingers v1.2.2-0.20260704073236-3e22b6a528b9
+	github.com/chainreactors/logs v0.0.0-20260624034259-9aaea4aa52cc
 	github.com/chainreactors/neutron v0.1.1-0.20260710171341-456d36779ab2
-	github.com/chainreactors/proxyclient v1.0.4-0.20260218115902-74a84a4535b0
+	github.com/chainreactors/proxyclient v1.1.0
 	github.com/chainreactors/rem v0.3.0
-	github.com/chainreactors/utils v0.0.0-20260704063748-6f849f173481
+	github.com/chainreactors/utils v0.0.0-20260711153742-f3d210a5fa9d
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/panjf2000/ants/v2 v2.9.1
-	golang.org/x/net v0.47.0
+	golang.org/x/net v0.49.0
 	gopkg.in/yaml.v3 v3.0.1
 	sigs.k8s.io/yaml v1.6.0 // generate only
 )
@@ -28,8 +28,6 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/mozillazg/go-pinyin v0.20.0 // indirect
-	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
-	github.com/shadowsocks/go-shadowsocks2 v0.1.5 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/twmb/murmur3 v1.1.8 // indirect
@@ -50,3 +48,5 @@ replace (
 )
 
 replace github.com/chainreactors/rem => /mnt/chainreactors/rem
+
+replace github.com/chainreactors/utils/parsers => github.com/chainreactors/utils/parsers v0.0.2
