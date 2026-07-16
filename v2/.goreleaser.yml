@@ -46,7 +46,6 @@ builds:
     tags:
       - forceposix
       - noembed
-      - goregexp
       - osusergo
       - netgo
     asmflags:
