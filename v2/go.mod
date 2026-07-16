@@ -49,4 +49,4 @@ replace (
 
 replace golang.org/x/sync => golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 
-replace github.com/wasilibs/go-re2 => github.com/chainreactors/go-re2 v1.11.1-0.20260716150329-21913e0cb400
+replace github.com/wasilibs/go-re2 => github.com/chainreactors/go-re2 v1.11.1-0.20260716151311-5ea852063c66

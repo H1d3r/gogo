@@ -81,6 +81,8 @@ github.com/chainreactors/go-re2 v1.11.1-0.20260716142648-7b4fcc466374 h1:PDUneeD
 github.com/chainreactors/go-re2 v1.11.1-0.20260716142648-7b4fcc466374/go.mod h1:4qC68vqWSuPTct3spuTrWBqCpm00mQ707JKLS1izVjI=
 github.com/chainreactors/go-re2 v1.11.1-0.20260716150329-21913e0cb400 h1:C3Bj3N/9iBSG4IV+K9gUvCZPorHU59btuiQZGDv5Vq4=
 github.com/chainreactors/go-re2 v1.11.1-0.20260716150329-21913e0cb400/go.mod h1:4qC68vqWSuPTct3spuTrWBqCpm00mQ707JKLS1izVjI=
+github.com/chainreactors/go-re2 v1.11.1-0.20260716151311-5ea852063c66 h1:lrwNyHnNQVJtVFtEbdtEQxq1g9g3QNItw7ueBoxRPNs=
+github.com/chainreactors/go-re2 v1.11.1-0.20260716151311-5ea852063c66/go.mod h1:4qC68vqWSuPTct3spuTrWBqCpm00mQ707JKLS1izVjI=
 github.com/chainreactors/logs v0.0.0-20260624034259-9aaea4aa52cc h1:e6rjnU8dmfhAnkFzLp/R5gta0LbFM13L27djxbC/i4I=
 github.com/chainreactors/logs v0.0.0-20260624034259-9aaea4aa52cc/go.mod h1:VrXmYPbNN5AVoo1sc5aeyPVBYqubMdb3KO/tn5rRZpo=
 github.com/chainreactors/neutron v0.1.1-0.20260714062907-716c6b167cb6 h1:apEDnJeZ5fe2AaEJHV6TRDldoy2t/d7E1maxmUz2tfU=
