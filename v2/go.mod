@@ -1,6 +1,8 @@
 module github.com/chainreactors/gogo/v2
 
-go 1.17
+go 1.24.0
+
+toolchain go1.24.3
 
 require (
 	github.com/M09ic/go-ntlmssp v0.0.0-20230312133735-dcccd454dfe0
@@ -29,12 +31,12 @@ require (
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/mozillazg/go-pinyin v0.20.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
-	github.com/tetratelabs/wazero v1.7.2 // indirect
+	github.com/tetratelabs/wazero v1.11.0 // indirect
 	github.com/twmb/murmur3 v1.1.8 // indirect
 	github.com/wasilibs/go-re2 v1.6.0 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/sys v0.44.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 )
 
@@ -46,3 +48,5 @@ replace (
 )
 
 replace golang.org/x/sync => golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
+
+replace github.com/wasilibs/go-re2 => github.com/chainreactors/go-re2 v1.11.1-0.20260716142648-7b4fcc466374
