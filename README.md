@@ -28,6 +28,8 @@ blog posts:
 
 指纹与poc仓库: https://github.com/chainreactors/templates
 
+当前版本的完整参数以 `gogo -h` 为准。多字符长参数必须使用双横线，例如 `--ipp`、`--sp`、`--ef`；单横线只用于 `-i`、`-p`、`-F` 等单字符短参数。过滤功能现已拆分为历史结果过滤 `--filter`、实时输出过滤 `--output-filter` 和提前停止深层扫描的 `--scan-filter`。
+
 ### 最简使用
 
 指定网段进行默认扫描, 并在命令行输出
@@ -84,9 +86,9 @@ blog posts:
 
 启发式扫描的命令有些复杂, 但可以使用workflow将复杂的命令写成配置文件, 快捷调用([内置的workflow细节见doc](https://chainreactors.github.io/wiki/gogo/start/#workflow)).
 
- `gogo -w 172` 
+`gogo -w 172`
 
-即可实现与`gogo -i 172.16.1.1/12 -m ss --ping -p top2,win,db --af` 完全相同的配置
+当前内置 workflow 默认使用 `all` 端口预设，因此上面的命令等价于 `gogo -i 172.16.0.0/12 -m ss --ping -p all --af`。如需缩小端口范围，可覆盖为 `gogo -w 172 -p top2,win,db`。
 
 **查看所有workflow**
 
@@ -132,7 +134,7 @@ gogo -i 81.68.175.32/28 -p top2
 
 如果执行`gogo -i 81.68.175.1 --af`
 
-扫描完成后, 可以看到在gogo二进制文件同目录下, 生成了`.81.68.175.1_28_all_default_json.dat1`, 该文件是deflate压缩的json文件.
+扫描完成后，可以看到在 gogo 二进制文件同目录下生成类似 `.81.68.175.1.32_top1_default_dat.dat` 的文件；首次生成使用 `.dat`，重名时追加数字。该文件是 deflate 压缩的 JSON Lines。
 
 通过gogo格式化该文件, 获得human-like的结果
 
@@ -185,7 +187,7 @@ Exploit: none, Version level: 0
 
 其中`::` 表示模糊匹配, 还有其他三种语法,如 `==` 为精准匹配, `!=` 为不等于, `!:` 为不包含
 
-`-F 1.json -f file` 重新输出到文件, 也可以`-F 1.dat --af` 自动生成格式化后的文件名. 
+`-F 1.dat -o json -f result.json` 可重新导出为聚合 JSON，也可以使用 `-F 1.dat --af` 自动生成格式化后的明文文件名。
 
 ## 注意事项
 
@@ -233,18 +235,25 @@ go mod tidy
 # 注意: 如果需要使用go1.10编译windows03可用版本， 也需要先使用高版本的go generate生成相关依赖
 go generate  
 
-# build 
-go build .
+# build（标准 CLI 构建必须启用 goregexp，与 release 构建保持一致）
+go build -tags goregexp -o gogo .
+
+# run from source
+go run -tags goregexp . -F 1.json
 
 # windows server 2003 compile
-GOOS=windows GOARCH=386 go1.10 build .
+GOOS=windows GOARCH=386 go1.10 build -tags "forceposix goregexp" .
 
 # 因为go1.10 还没有go mod, 可能会导致依赖报错. 如果发生了依赖报错, 可以使用go1.11 编译. 
 # go1.11 官方声明不支持windows server 2003 , 实测可以稳定运行(需要调低并发).
-GOOS=windows GOARCH=386 go1.11 build .
+GOOS=windows GOARCH=386 go1.11 build -tags "forceposix goregexp" .
 ```
 
 如果需要编译windows xp/2003的版本, 请先使用高版本的go生成templates. 再使用go 1.11编译即可.
+
+`goregexp` 用于选择 Go 标准库正则后端，也是 release、nightly 和 TinyGo 构建采用的默认方案。手动编译时不要省略该 tag；否则在部分 Go/Windows 组合下可能进入 `go-re2`/WASM 路径，并在加载指纹规则时出现 `wasm error: invalid table access`。
+
+`-tags` 是 `go` 命令的编译参数，不是 gogo 的运行参数。编译完成后，Linux/macOS 运行 `./gogo -F 1.json`，Windows PowerShell 运行 `.\gogo.exe -F .\1.json`。不要写成 `gogo run -tags goregexp -F 1.json`，否则 `-tags` 会被 gogo 解析为 `-t` 线程参数。
 
 ## Similar or related works
 

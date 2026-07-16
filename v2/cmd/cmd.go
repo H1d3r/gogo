@@ -16,7 +16,6 @@ func init() {
 }
 
 func Gogo() {
-	defer os.Exit(0)
 	err := core.RunWithArgs(context.Background(), os.Args[1:], core.RunOptions{})
 	if err != nil {
 		if flagsErr, ok := err.(*flags.Error); !ok || flagsErr.Type != flags.ErrHelp {

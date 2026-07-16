@@ -12,11 +12,11 @@ import (
 	"github.com/chainreactors/fingers/fingers"
 	. "github.com/chainreactors/gogo/v2/engine"
 	"github.com/chainreactors/logs"
-	"github.com/chainreactors/utils/parsers"
 	"github.com/chainreactors/proxyclient"
 	"github.com/chainreactors/utils"
 	"github.com/chainreactors/utils/encode"
 	"github.com/chainreactors/utils/fileutils"
+	"github.com/chainreactors/utils/parsers"
 
 	. "github.com/chainreactors/gogo/v2/pkg"
 	"github.com/chainreactors/utils/iutils"
@@ -197,6 +197,7 @@ func (r *Runner) PrepareConfig() {
 			Threads:   r.Threads,
 			PortSpray: r.PortSpray,
 			Mod:       r.Mod,
+			NoScan:    r.NoScan,
 		},
 		RunnerOpt: &RunnerOption{
 			Delay:        r.Delay,
@@ -441,14 +442,14 @@ func (r *Runner) Close(config *Config) {
 func printConfigs(t string) {
 	if t == "port" {
 		Printportconfig()
-	} else if t == "nuclei" {
+	} else if t == "neutron" || t == "nuclei" {
 		PrintNeutronPoc()
 	} else if t == "workflow" {
 		PrintWorkflow()
 	} else if t == "extract" {
 		PrintExtract()
 	} else {
-		fmt.Println("choice port|nuclei|workflow|extract")
+		fmt.Println("choice port|workflow|neutron|extract")
 	}
 }
 

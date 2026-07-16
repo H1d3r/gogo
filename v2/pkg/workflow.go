@@ -46,21 +46,32 @@ func (w *Workflow) PrepareConfig(rconfig Config) *Config {
 	var config = &Config{
 		RunnerOpt: rconfig.RunnerOpt,
 		GOGOConfig: &parsers.GOGOConfig{
-			IP:       w.IP,
-			IPlist:   w.IPlist,
-			ListFile: rconfig.ListFile,
-			JsonFile: rconfig.JsonFile,
-			Ports:    w.Ports,
-			Mod:      w.Mod,
+			IP:        w.IP,
+			IPlist:    w.IPlist,
+			ListFile:  rconfig.ListFile,
+			JsonFile:  rconfig.JsonFile,
+			Ports:     w.Ports,
+			Mod:       w.Mod,
+			Threads:   rconfig.Threads,
+			PortSpray: rconfig.PortSpray,
+			NoScan:    w.NoScan || rconfig.NoScan,
 		},
-		Excludes:    rconfig.Excludes,
-		IpProbe:     w.IpProbe,
-		PortProbe:   w.PortProbe,
-		FilePath:    w.Path,
-		Outputf:     "full",
-		FileOutputf: "json",
-		Tee:         rconfig.Tee,
-		Compress:    rconfig.Compress,
+		Excludes:        rconfig.Excludes,
+		IsListInput:     rconfig.IsListInput,
+		IsJsonInput:     rconfig.IsJsonInput,
+		NoSpray:         rconfig.NoSpray,
+		IpProbe:         w.IpProbe,
+		PortProbe:       w.PortProbe,
+		FilePath:        w.Path,
+		Outputf:         "full",
+		FileOutputf:     "json",
+		OutputDelimiter: rconfig.OutputDelimiter,
+		Tee:             rconfig.Tee,
+		Compress:        rconfig.Compress,
+		Filters:         rconfig.Filters,
+		FilterOr:        rconfig.FilterOr,
+		OutputFilters:   rconfig.OutputFilters,
+		ResultCallback:  rconfig.ResultCallback,
 	}
 
 	if rconfig.FilePath != "" {
@@ -80,12 +91,15 @@ func (w *Workflow) PrepareConfig(rconfig Config) *Config {
 		config.Ports = rconfig.Ports
 	}
 
-	if w.Ping {
+	if w.Ping || rconfig.HasAlivedScan() {
 		config.AliveSprayMod = append(config.AliveSprayMod, "icmp")
 	}
 
 	if w.Mod == "" {
 		config.Mod = Default
+	}
+	if rconfig.Mod != Default {
+		config.Mod = rconfig.Mod
 	}
 
 	if rconfig.Threads != 0 {
